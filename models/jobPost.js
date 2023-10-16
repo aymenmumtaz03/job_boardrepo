@@ -1,8 +1,8 @@
 'use strict';
-import { Model } from 'sequelize';
+const  { Model } = require('sequelize')
 // eslint-disable-next-line no-undef
-export default (sequelize, DataTypes) => {
-  class Job_post extends Model {
+module.exports =  (sequelize, DataTypes) => {
+  class JobPost extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,17 +10,18 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Job_post.belongsTo(models.Company, {
+      JobPost.belongsTo(models.Company, {
         foreignKey: 'company_id', 
       });
 
-      Job_post.belongsTo(models.User, {
+      JobPost.belongsTo(models.User, {
         foreignKey: 'user_id', 
       });
 
     }
   }
-  Job_post.init({
+
+  JobPost.init({
     title: DataTypes.STRING,
     company_name: DataTypes.STRING,
     location: DataTypes.INTEGER,
@@ -41,7 +42,8 @@ export default (sequelize, DataTypes) => {
 
   }, {
     sequelize,
-    modelName: 'job_post',
+    modelName:'JobPost',
+    tableName:'job_posts'
   });
-  return Job_post;
+  return JobPost;
 };

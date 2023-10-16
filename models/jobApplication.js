@@ -1,7 +1,8 @@
 'use strict';
-import { Model } from 'sequelize';
-export default (sequelize, DataTypes) => {
-  class Application extends Model {
+const {Model} = require('sequelize');
+
+module.exports =  (sequelize, DataTypes) => {
+  class JobApplication extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,13 +10,13 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Application.belongsTo(models.Seeker, {
+      JobApplication.belongsTo(models.Seeker, {
         foreignKey: 'seeker_id', // This foreign key should match the one used in the Seeker model
         as: 'seeker',
       });
     }
   }
-  Application.init({
+  JobApplication.init({
     status: DataTypes.STRING,
     seeker_id:{
       type:DataTypes.INTEGER,
@@ -23,7 +24,8 @@ export default (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'application',
+    modelName: 'JobApplication',
+    tableName:'applications',
   });
-  return Application;
+  return JobApplication;
 };

@@ -18,28 +18,27 @@ module.exports = (sequelize, DataTypes) => {
         as: 'jobPosts'
       });
 
-      Company.hasMany(models.Application, {
+      Company.hasMany(models.JobApplication, {
         foreignKey: 'company_id',
         as: 'application'
       });
 
-      Company.hasMany(models.Messages, {
+      Company.hasMany(models.Message, {
         foreignKey: 'company_id',
         as: 'messages'
       });
 
     }
   }
+  
   Company.init({
     company_name: DataTypes.STRING,
     location: DataTypes.INTEGER,
     discription: DataTypes.STRING,
-
-
-
   }, {
     sequelize,
     modelName: 'Company',
+    tableName:'companies'
   });
   return Company;
 };

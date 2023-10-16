@@ -5,7 +5,7 @@ const {
 } = require('sequelize');
 // eslint-disable-next-line no-undef
 module.exports = (sequelize, DataTypes) => {
-  class notification extends Model {
+  class Notification extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -19,11 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  notification.init({
+  Notification.init({
     user_id: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'notification',
+    modelName: 'Notification',
+    tableName: 'notifications'
   });
-  return notification;
+  return Notification;
 };

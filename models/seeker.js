@@ -1,9 +1,6 @@
 'use strict';
-const {
-  Model
-// eslint-disable-next-line no-undef
-} = require('sequelize');
-// eslint-disable-next-line no-undef
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Seeker extends Model {
     /**
@@ -12,29 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      Seeker.hasMany(models.Application, {
-        foreignKey: 'seeker_id', // This foreign key should exist in the Application model
+      Seeker.hasMany(models.JobApplication, {
+        foreignKey: 'seeker_id',
         as: 'applications',
       });
       Seeker.hasMany(models.Message, {
         foreignKey: 'seeker_id',
-        as: 'messages'
+        as: 'messages',
       });
-      
     }
   }
-  Seeker.init({
-    user_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    skill: DataTypes.STRING,
-    resume: DataTypes.STRING,
-    contact: DataTypes.INTEGER,
-    imageurl: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Seeker',
-  });
+  Seeker.init(
+    {
+      user_name: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      skill: DataTypes.STRING,
+      resume: DataTypes.STRING,
+      contact: DataTypes.INTEGER,
+      imageurl: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Seeker',
+    },
+  );
   return Seeker;
 };

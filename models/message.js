@@ -1,9 +1,9 @@
 'use strict';
 const {
   Model
-// eslint-disable-next-line no-undef
+
 } = require('sequelize');
-// eslint-disable-next-line no-undef
+
 module.exports = (sequelize, DataTypes) => {
   class Message extends Model {
     /**
@@ -20,12 +20,13 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   }
+
   Message.init({
     sender_id: DataTypes.INTEGER,
     content: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'message',
+    modelName: 'Message',
   });
   return Message;
 };
