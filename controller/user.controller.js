@@ -1,23 +1,20 @@
 const { StatusCodes, BAD_REQUEST } = require('http-status-codes');
 const { ERROR_CODES } = require('../constants');
 const { User } = require('../models/index');
-const { createUser, validatePassword, getUserById, updateOne, removeUser } = require('../services/user.Services');
+const { createUser, validatePassword, getUserById, updateOne, removeUser } = require('../services/user.service');
 const jwt = require('jsonwebtoken');
 const user = require('../models/user');
+const { tokenBlacklist } = require('../services/jwt.service');
 require('dotenv').config();
 
 const signUp = async (req, res) => {
   const { name, password, email } = req.body;
 
   const isExist = await User.findOne({ where: { email } });
-  console.log(isExist);
-  console.log(email);
-
   if (isExist) {
     return res.status(ERROR_CODES.BAD_REQUEST).json({ message: 'User already exist' });
   }
   const user = await createUser(name, email, password);
-  console.log(user);
   return res.status(201).json({
     data: user,
     message: 'User created sucessfully',
@@ -41,7 +38,7 @@ const signIn = async (req, res) => {
   const isValid = await validatePassword(password, user?.password);
   if (isValid) {
     const token = jwt.sign({ id: user.id, name: user.name, email: user.email }, process.env.JWT_SECRET_KEY, {
-      expiresIn: '60h',
+      expiresIn: '10h',
     });
     res.status(StatusCodes.OK).json({
       token,
@@ -100,4 +97,13 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { signUp, signIn, getAllUser, getUser, updateUser, deleteUser };
+const logout = async (req, res) => {
+  const header = req.headers.authorization;
+  if (header) {
+    const token = header.split(' ')[1];
+    tokenBlacklist.push(token);
+    res.json({ message: 'User logout sucessfully' });
+  }
+};
+
+module.exports = { signUp, signIn, getAllUser, getUser, updateUser, deleteUser, logout };

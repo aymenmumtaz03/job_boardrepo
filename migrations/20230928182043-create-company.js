@@ -10,20 +10,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      company_name: {
+      name: {
         type: Sequelize.STRING
       },
-      location: {
-        type: Sequelize.INTEGER
-      },
-      discription: {
+      url: {
         type: Sequelize.STRING
       },
-      company_id: {
-      type:Sequelize.INTEGER.UNSIGNED,
-      allowNull:false
+      phone: {
+        type: Sequelize.STRING
       },
-      
+      user_id:{
+         type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

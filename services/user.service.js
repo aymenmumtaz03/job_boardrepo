@@ -2,6 +2,7 @@ const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+
 const createUser = async (userName, userEmail, password) => {
   const hashPassword = await bcrypt.hash(password, 10);
   console.log(hashPassword);
@@ -42,15 +43,13 @@ const updateOne = async (userId, newData) => {
       user.email = newData.email;
     }
     if (newData.password) {
-      user.password = newData.passwordassword; 
+      user.password = newData.passwordassword;
     }
 
-   
     await user.save();
-
-    return user; 
+    return user;
   } catch (error) {
-    throw error; 
+    throw error;
   }
 };
 
@@ -62,7 +61,6 @@ const removeUser = async (id) => {
   await user.destroy();
   return 'User deleted successfully';
 };
-
 
 
 

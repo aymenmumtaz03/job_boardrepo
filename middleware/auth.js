@@ -1,17 +1,24 @@
 const jwt = require('jsonwebtoken');
+const { StatusCodes } = require('http-status-codes');
+const { jwtBlackListToken } = require('../services/jwt.service');
 require('dotenv').config;
 
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
   const header = req.headers.authorization;
   const secretKey = process.env.JWT_SECRET_KEY;
-  console.log(secretKey);
 
   if (header) {
     const token = header.split(' ')[1];
+    const blackList = await jwtBlackListToken(token);
+
     try {
-      const decoded = jwt.verify(token, secretKey);
-      req.user = decoded;
-      next();
+      if (token && !blackList) {
+        const decoded = jwt.verify(token, secretKey);
+        req.user = decoded;
+        next();
+      } else {
+        res.status(401).json({ error: 'Unautherized' });
+      }
     } catch (error) {
       return res.status(401).json({ error: 'Invalid Token' });
     }
@@ -19,6 +26,5 @@ const authenticate = (req, res, next) => {
     return res.status(401).json({ error: 'No Token Provided' });
   }
 };
-
 
 module.exports = authenticate;
