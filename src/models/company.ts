@@ -1,47 +1,51 @@
-  'use strict';
-  import { Model,Sequelize,DataTypes } from "sequelize";
+'use strict';
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../utils/database';
+import User from './user';
 
-  module.exports = (sequelize:Sequelize, dataTypes: typeof DataTypes) => {
-    class Company extends Model {
-      /**
-       * Helper method for defining associations.
-       * This method is not a part of Sequelize lifecycle.
-       * The `models/index` file will call this method automatically.
-       */
-      static associate(models:any) {
-        Company.belongsTo(models.User, {
-          foreignKey: 'user_id',
-          as: 'user',
-        });
+// module.exports = (sequelize:Sequelize, dataTypes: typeof DataTypes) => {
+//   class Company extends Model {
 
-        Company.hasMany(models.JobPost, {
-          foreignKey: 'company_id',
-          as: 'jobPosts',
-        });
+class Company extends Model {
+  public id!: string;
+  public name!: string;
+  public url!: string;
+  public phonenumber!: string;
 
-        Company.hasMany(models.JobApplication, {
-          foreignKey: 'company_id',
-          as: 'application',
-        });
+  /**
+   * Helper method for defining associations.
+   * This method is not a part of Sequelize lifecycle.
+   * The `models/index` file will call this method automatically.
+   */
+  public static associate(models: any): void {
+    Company.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user',
+    });
+  }
+}
 
-        Company.hasMany(models.Message, {
-          foreignKey: 'company_id',
-          as: 'messages',
-        });
-      }
-    }
-
-    Company.init(
-      {
-        name: DataTypes.STRING,
-        url: DataTypes.STRING,
-        phone: DataTypes.STRING,
-      },
-      {
-        sequelize,
-        modelName: 'Company',
-        tableName: 'companies',
-      },
-    );
-    return Company;
-  };
+Company.init(
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Company',
+    tableName: 'companies',
+  },
+);
+export default Company;

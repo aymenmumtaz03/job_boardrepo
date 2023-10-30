@@ -8,7 +8,10 @@ class User extends Model {
   public password!: string;
 
   public static associate(models: any) {
-    // Define associations here
+    User.hasMany(models.Company, {
+      foreignKey: 'user_id',
+      as:'user'
+    })
   }
 }
 

@@ -2,9 +2,10 @@ import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 const { jwtBlackListToken } = require ('../services/jwt.service');
 import { Request, Response, NextFunction } from 'express';
+import { CustomRequest } from 'utils/request';
 require('dotenv').config;
 
-const authenticate = async (req:Request, res:Response, next:NextFunction) => {
+const authenticate = async (req:CustomRequest, res:Response, next:NextFunction) => {
   const header = req.headers.authorization;
   const secretKey = process.env.JWT_SECRET_KEY;
 
@@ -15,7 +16,7 @@ const authenticate = async (req:Request, res:Response, next:NextFunction) => {
     try {
       if (token && !blackList) {
         const decoded = jwt.verify(token, secretKey as any ) ;
-        `req.user  = decoded `;
+        req.user  = decoded ;
         next();
       } else {
         res.status(401).json({ error: 'Unautherized' });

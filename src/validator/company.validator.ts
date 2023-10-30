@@ -9,7 +9,7 @@ export const createCompanyvalidate = [
 export const validateGetCompanyById = [
     check('id').isInt({ min: 1 }).withMessage('Invalid value for Id')];
 
-const validateDeteleCompany = [
+export const validateDeteleCompany = [
     check('id').isInt({ min: 1 }).withMessage('Invalid value for Id')];
 
 export const validateUpdateCompany = [
@@ -19,9 +19,3 @@ export const validateUpdateCompany = [
   check('phone number').isNumeric().withMessage('Correct phone number is required'),
 ];
 
-module.exports = {
-  createCompanyvalidate,
-  validateGetCompanyById,
-  validateDeteleCompany,
-  validateUpdateCompany,
-};

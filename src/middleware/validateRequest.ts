@@ -12,5 +12,4 @@ export const isRequestValidated = async (req:Request, res:Response, next:NextFun
   next();
 };
 
-module.exports = { isRequestValidated };
-  
+export default isRequestValidated;

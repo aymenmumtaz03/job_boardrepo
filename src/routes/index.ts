@@ -10,6 +10,6 @@ import companyRoutes from './company.route';
 
 router.use(`${REACT_APP_API_VERSION}/users`, userRoutes);
 router.use(`${REACT_APP_API_VERSION}/jobposts`, jobpostRoutes);
-router.use(`${REACT_APP_API_VERSION}/companies`, companyRoutes);
+router.use(`${REACT_APP_API_VERSION}/company`, companyRoutes);
 
 export default router;

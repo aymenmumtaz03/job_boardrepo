@@ -1,11 +1,14 @@
-const  { Company } = require ('../models');
+import Company from "../models/company";
 
 const createCompany = async (companyData: any, userId: any) => {
+
   return await Company.create({
     ...companyData,
     user_id: userId,
   });
+
 };
+
 
 const getCompany = async (companyId: any) => {
   return await Company.findByPk(companyId);
@@ -21,7 +24,7 @@ const companyUpdate = async (companyId: any, updatedData: { name: any; URl: any;
     company.name = updatedData.name;
   }
   if (updatedData.URl) {
-    company.URL = updatedData.URL;
+    company.url = updatedData.URL;
   }
 
   await company.save();
@@ -47,4 +50,4 @@ const allCompany = async () => {
   }
 };
 
-module.exports = { createCompany, getCompany, companyUpdate, destroyCompany, allCompany };
+export default { createCompany, getCompany, companyUpdate, destroyCompany, allCompany };
