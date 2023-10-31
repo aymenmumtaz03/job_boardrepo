@@ -20,5 +20,4 @@ exports.ERROR_MESSAGES = {
     MISSING_ARGUMENTS: "The requested resource is missing required arguments.",
     INVALID_ARGUMENTS: "The requested resource does not support one or more of the given parameters.",
 };
-// eslint-disable-next-line no-undef
-// module.exports = { ERROR_CODES, ERROR_MESSAGES };
+

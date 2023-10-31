@@ -7,7 +7,7 @@ import { isDataView } from 'util/types';
 import { Op } from 'sequelize';
 
 const companyCreate = async (req: CustomRequest, res: Response) => {
-  const companyData = req.body; // Retrieve company data from the request body
+  const companyData = req.body; 
   try {
     const existingCompany = await Company.findOne({ 
       where: { [Op.or]:[{name: companyData.name},{url: companyData.url}]  },

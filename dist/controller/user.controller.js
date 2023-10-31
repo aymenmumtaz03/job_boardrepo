@@ -118,4 +118,4 @@ const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.logout = logout;
-// export default { signUp, signIn, getAllUser, getUser, updateUser, deleteUser, logout };
+
